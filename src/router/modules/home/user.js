@@ -23,9 +23,7 @@ export default {
       component: () => import('@views/user/DetailsView'),
       meta: {
         requireAuth: true,
-        title: '用户详情',
-        menuItem: true,
-        icon: 'User'
+        title: '用户详情'
       }
     }
   ]
