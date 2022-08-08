@@ -23,20 +23,12 @@ module.exports = defineConfig({
   devServer: {
     proxy: {
       '/api/*': {
-        target: 'http://www.sportlive8.com',
+        target: 'http://154.208.100.176:8088',
         changeOrigin: true,
         pathRewrite: {
           '/api': ''
         }
       }
-      // '/ws': {
-      //   target: 'http://www.sportlive8.com',
-      //   changeOrigin: true,
-      //   pathRewrite: {
-      //     '^/ws': '/ws'
-      //   },
-      //   ws: true
-      // }
     }
     // https: true
   },

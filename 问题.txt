@@ -1,0 +1,5 @@
+1.退出登录之后，那个token还可以用 /admin/loginOut
+2.上传图片之后，返回的url只有一个文件名，没有服务器名和路径名 /file/upload
+3.合作方式查看详情的接口，查询成功，但是没有任何数据返回 /friend/info
+3.根据Id删除接口返回成功，但是列表去查数据还是在 /friend/del
+4.删除banner好像没有作用
