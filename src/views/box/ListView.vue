@@ -4,7 +4,11 @@
     <el-table :data="tableData" v-loading="loading" border style="width: 100%">
       <el-table-column prop="box.boxName" label="名称"/>
       <el-table-column prop="box.totalNum" label="总数"/>
-      <el-table-column prop="box.sellNum" label="剩余数"/>
+      <el-table-column label="剩余数">
+        <template #default="scope">
+          {{ scope.row.box.totalNum - scope.row.box.sellNum }}
+        </template>
+      </el-table-column>
       <el-table-column prop="box.price" label="价格"/>
       <el-table-column label="图片">
         <template #default="scope">
@@ -56,7 +60,7 @@ export default {
       this.$router.push({ name: 'detailsBox', params: { data: JSON.stringify(row) } })
     },
     handleDelete (index, row) {
-      delNotice({ id: row.id }).then(() => {
+      delNotice({ id: row.id.toString() }).then(() => {
         this.$message({
           message: '删除成功!',
           type: 'success'

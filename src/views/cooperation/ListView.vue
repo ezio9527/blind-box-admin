@@ -71,10 +71,10 @@ export default {
       })
     },
     handleEdit (index, row) {
-      this.$router.push({ name: 'cooperationEdit', params: { id: row.id } })
+      this.$router.push({ name: 'cooperationEdit', params: { id: row.id.toString() } })
     },
     handleDelete (index, row) {
-      delCooperation({ id: row.id }).then(() => {
+      delCooperation({ id: row.id.toString() }).then(() => {
         this.$message({
           message: '删除成功!',
           type: 'success'

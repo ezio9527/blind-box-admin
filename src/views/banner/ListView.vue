@@ -71,7 +71,7 @@ export default {
       this.$router.push({ name: 'bannerEdit', params: { data: JSON.stringify(row) } })
     },
     handleDelete (index, row) {
-      delBanner({ id: row.id }).then(() => {
+      delBanner({ id: row.id.toString() }).then(() => {
         this.$message({
           message: '删除成功!',
           type: 'success'

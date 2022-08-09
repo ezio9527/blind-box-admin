@@ -54,7 +54,7 @@ export default {
       this.$router.push({ name: 'administratorEdit', params: { data: JSON.stringify(row) } })
     },
     handleDelete (index, row) {
-      delAdmin({ id: row.id }).then(() => {
+      delAdmin({ id: row.id.toString() }).then(() => {
         this.$message({
           message: '删除成功!',
           type: 'success'

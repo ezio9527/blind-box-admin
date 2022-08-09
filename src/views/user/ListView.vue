@@ -77,7 +77,7 @@ export default {
       })
     },
     handleEdit (index, row) {
-      this.$router.push({ name: 'cooperationEdit', params: { id: row.id } })
+      this.$router.push({ name: 'cooperationEdit', params: { id: row.id.toString() } })
     },
     handleDelete (index, row) {
     }

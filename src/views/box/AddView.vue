@@ -32,10 +32,10 @@
         <div></div>
       </el-form-item>
       <el-form-item v-for="(item, index) in form.proportions" :key="index" :label="(index+1+'.').toString()">
-        <el-col :span="2"><el-input v-model="form.proportions[index].quantity"/></el-col>
+        <el-col :span="2"><el-input v-model="form.proportions[index].quantity" placeholder="盲盒数量"/></el-col>
         <el-col :span="1"><div style="text-align: center;">个</div></el-col>
-        <el-col :span="6" :offset="1"><el-input v-model="form.proportions[index].totalNum"/></el-col>
-        <el-col :span="6" :offset="1"><el-input v-model="form.proportions[index].tokenAddress"/></el-col>
+        <el-col :span="6" :offset="1"><el-input v-model="form.proportions[index].totalNum" placeholder="奖励数量"/></el-col>
+        <el-col :span="6" :offset="1"><el-input v-model="form.proportions[index].tokenAddress" placeholder="合约地址"/></el-col>
         <el-col :span="6" :offset="1">
           <el-button type="primary" icon="Plus" @click="plus" circle/>
           <el-button type="danger" icon="Delete" @click="sub(index)" circle/>

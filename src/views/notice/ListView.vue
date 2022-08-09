@@ -63,10 +63,10 @@ export default {
       })
     },
     handleEdit (index, row) {
-      this.$router.push({ name: 'noticeEdit', params: { id: row.id } })
+      this.$router.push({ name: 'noticeEdit', params: { id: row.id.toString() } })
     },
     handleDelete (index, row) {
-      delNotice({ id: row.id }).then(() => {
+      delNotice({ id: row.id.toString() }).then(() => {
         this.$message({
           message: '删除成功!',
           type: 'success'
