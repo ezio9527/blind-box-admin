@@ -32,9 +32,9 @@
         <div></div>
       </el-form-item>
       <el-form-item v-for="(item, index) in form.proportions" :key="index" :label="(index+1+'.').toString()">
-        <el-col :span="2"><el-input v-model="form.proportions[index].quantity"/></el-col>
+        <el-col :span="2"><el-input v-model="form.proportions[index].totalNum"/></el-col>
         <el-col :span="1"><div style="text-align: center;">个</div></el-col>
-        <el-col :span="6" :offset="1"><el-input v-model="form.proportions[index].totalNum"/></el-col>
+        <el-col :span="6" :offset="1"><el-input v-model="form.proportions[index].quantity"/></el-col>
         <el-col :span="6" :offset="1"><el-input v-model="form.proportions[index].tokenAddress"/></el-col>
       </el-form-item>
     </el-form>
