@@ -20,6 +20,12 @@ export function getBaseUrl () {
 export function findUserAll (data) {
   return http.get('/wallet/findAll', { params: data })
 }
+export function findUserIncome (data) {
+  return http.get('/wallet/findMyIncome', { params: data })
+}
+export function findTeamIncome (data) {
+  return http.get('/wallet/findTeamIncome', { params: data })
+}
 // 管理员
 export function findAdminAll (data) {
   return http.get('/admin/list', { params: data })

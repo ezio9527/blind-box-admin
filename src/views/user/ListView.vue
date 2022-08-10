@@ -1,33 +1,29 @@
 <template>
   <div class="list-view">
-    <el-form :inline="true" :model="form">
-      <el-form-item label="钱包地址">
+    <el-form :inline="true" :model="form" ref="form">
+      <el-form-item label="钱包地址" prop="walletAddress">
         <el-input v-model="form.walletAddress" placeholder="请输入用户钱包地址" />
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="qryList">查询</el-button>
+        <el-button icon="refresh" @click="$refs.form.resetFields()">重置</el-button>
       </el-form-item>
     </el-form>
     <el-table :data="tableData" v-loading="loading" border style="width: 100%">
-      <el-table-column prop="name" label="名称" width="180" />
-      <el-table-column label="操作">
+      <el-table-column prop="walletAddress" label="地址" />
+      <el-table-column prop="parentAddress" label="上级地址" />
+      <el-table-column prop="invCode" label="邀请码" />
+      <el-table-column prop="createTime" label="注册时间" />
+      <el-table-column prop="user" label="个人绩效">
         <template #default="scope">
-          <el-button
-            size="small"
-            @click="handleEdit(scope.$index, scope.row)">修改</el-button>
-          <el-popconfirm
-            @confirm="handleDelete(scope.$index, scope.row)"
-            confirm-button-text="删除"
-            cancel-button-text="取消"
-            icon="InfoFilled"
-            icon-color="#626AEF"
-            title="确定要删除这项数据?">
-            <template #reference>
-              <el-button
-                size="small"
-                type="danger">删除</el-button>
-            </template>
-          </el-popconfirm>
+          <span v-if="scope.row.user">{{ scope.row.user }}</span>
+          <el-button type="primary" @click="findUser(scope.$index, scope.row)" v-else>查询</el-button>
+        </template>
+      </el-table-column>
+      <el-table-column prop="team" label="团队绩效">
+        <template #default="scope">
+          <span v-if="scope.row.team">{{ scope.row.team }}</span>
+          <el-button type="primary" @click="findTeam(scope.$index, scope.row)" v-else>查询</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -43,7 +39,7 @@
 </template>
 
 <script>
-import { findUserAll } from '@/server/api'
+import { findUserAll, findUserIncome, findTeamIncome } from '@/server/api'
 import { mapGetters } from 'vuex'
 
 export default {
@@ -76,10 +72,19 @@ export default {
         this.loading = false
       })
     },
-    handleEdit (index, row) {
-      this.$router.push({ name: 'cooperationEdit', params: { id: row.id.toString() } })
+    findTeam (index, row) {
+      findTeamIncome({ walletAddress: row.walletAddress }).then(data => {
+        this.tableData[index].team = (data || [{ quantity: '', symbol: '暂无数据' }]).map(item => {
+          return item.quantity + item.symbol
+        }).join(' ; ')
+      })
     },
-    handleDelete (index, row) {
+    findUser (index, row) {
+      findUserIncome({ walletAddress: row.walletAddress }).then(data => {
+        this.tableData[index].user = (data || [{ quantity: '', symbol: '暂无数据' }]).map(item => {
+          return item.quantity + item.symbol
+        }).join(' ; ')
+      })
     }
   }
 }
