@@ -31,7 +31,11 @@
       <el-form-item label="盲盒内容" >
         <div></div>
       </el-form-item>
-      <el-form-item v-for="(item, index) in form.proportions" :key="index" :label="(index+1+'.').toString()">
+      <el-form-item
+        v-for="(item, index) in form.proportions"
+        :key="index"
+        :label="(index+1+'.').toString()"
+        prop="proportions">
         <el-col :span="2"><el-input v-model="form.proportions[index].totalNum" placeholder="盲盒数量"/></el-col>
         <el-col :span="1"><div style="text-align: center;">个</div></el-col>
         <el-col :span="6" :offset="1"><el-input v-model="form.proportions[index].quantity" placeholder="奖励数量"/></el-col>
@@ -117,15 +121,48 @@ export default {
       }
     },
     resetFields () {
-      this.form.proportions = [{
-        quantity: '',
-        totalNum: '',
-        tokenAddress: ''
-      }]
       this.$refs.form.resetFields()
+      setTimeout(() => {
+        const item = {
+          proportions: [{
+            quantity: '',
+            totalNum: '',
+            tokenAddress: ''
+          }]
+        }
+        Object.assign(this.form, item)
+      })
+    },
+    validate () {
+      // 校验盲盒内容的设置
+      // 校验盲盒数量设置
+      let total = 0
+      this.form.proportions.forEach(item => {
+        total += Number(item.totalNum)
+      })
+      if (total !== Number(this.form.box.totalNum)) {
+        this.$message({
+          message: '盲盒数量设置不正确!',
+          type: 'error'
+        })
+        return false
+      }
+      const isNull = this.form.proportions.some(item => {
+        return !item.quantity || !item.totalNum || !item.tokenAddress
+      })
+      if (isNull) {
+        this.$message({
+          message: '盲盒内容设置不能为空!',
+          type: 'error'
+        })
+        return false
+      }
     },
     add () {
       this.$refs.form.validate().then(() => {
+        if (!this.validate()) {
+          return
+        }
         this.loading = true
         this.form.box.owenIncome = Number(this.form.box.owenIncome)
         this.form.box.totalNum = Number(this.form.box.totalNum)
