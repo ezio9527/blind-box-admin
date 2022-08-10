@@ -157,6 +157,7 @@ export default {
         })
         return false
       }
+      return true
     },
     add () {
       this.$refs.form.validate().then(() => {
