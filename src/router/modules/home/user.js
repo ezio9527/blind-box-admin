@@ -15,16 +15,6 @@ export default {
         menuItem: true,
         icon: 'User'
       }
-    },
-    {
-      // 用户详情
-      path: '/user/details',
-      name: 'userDetails',
-      component: () => import('@views/user/DetailsView'),
-      meta: {
-        requireAuth: true,
-        title: '用户详情'
-      }
     }
   ]
 }
