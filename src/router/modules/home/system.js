@@ -62,7 +62,7 @@ export default {
       // 合作方式
       path: '/system/cooperation',
       meta: {
-        title: '合作方式'
+        title: '入驻项目方'
       },
       children: [
         {
@@ -72,7 +72,7 @@ export default {
           component: () => import('@views/cooperation/ListView'),
           meta: {
             requireAuth: true,
-            title: '合作方式列表',
+            title: '入驻项目方列表',
             menuItem: true
           }
         },
@@ -83,7 +83,7 @@ export default {
           component: () => import('@views/cooperation/AddView'),
           meta: {
             requireAuth: true,
-            title: '添加合作方式'
+            title: '添加入驻项目方'
           }
         },
         {
@@ -94,7 +94,7 @@ export default {
           props: true,
           meta: {
             requireAuth: true,
-            title: '编辑合作方式'
+            title: '编辑入驻项目方'
           }
         }
       ]
