@@ -6,6 +6,7 @@
         <div style="background: linear-gradient(137deg, #845CCF 0%, #C25296 59%, #EE4B6E 100%);padding: 20px">
           <base-image-uploader class="base-image-uploader" @success="uploadHandler"></base-image-uploader>
         </div>
+        <div style="margin-left: 20px">建议上传图片尺寸不要超过200 * 200,长宽比例可以略微不同,例: 190 * 185</div>
       </el-form-item>
       <el-form-item label="盲盒名称" prop="box.boxName">
         <el-input v-model="form.box.boxName"/>

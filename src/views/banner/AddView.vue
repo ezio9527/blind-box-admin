@@ -10,6 +10,7 @@
       </el-form-item>
       <el-form-item label="图片" prop="imageUrl">
         <base-image-uploader :image="imageUrl" @success="uploadHandler"></base-image-uploader>
+        <div style="margin-left: 20px">建议图片尺寸 345 * 135,长宽比例最好保持不变</div>
       </el-form-item>
       <el-form-item>
         <el-button icon="refresh" @click="resetFields">重置</el-button>
