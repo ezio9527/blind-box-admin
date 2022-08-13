@@ -4,12 +4,15 @@
     <el-form :model="form" :rules="rules" ref="form" v-loading="loading" size="large" label-width="120px">
       <el-form-item label="类型">
         <el-radio-group v-model="form.type">
-          <el-radio label="1">合作机构</el-radio>
+          <el-radio label="1">友情链接</el-radio>
           <el-radio label="2">入驻项目方</el-radio>
         </el-radio-group>
       </el-form-item>
       <el-form-item label="名称" prop="name">
         <el-input v-model="form.name"/>
+      </el-form-item>
+      <el-form-item label="排序" prop="sort">
+        <el-input v-model="form.sort"/>
       </el-form-item>
       <el-form-item label="链接" prop="clickUrl">
         <el-input v-model="form.clickUrl"/>
@@ -27,7 +30,7 @@
 </template>
 
 <script>
-import { addCooperation } from '@/server/api'
+import { addCooperation } from '@/server/http/api'
 
 export default {
   name: 'AddView',
@@ -38,12 +41,14 @@ export default {
       form: {
         type: '1',
         name: '',
+        sort: '',
         clickUrl: '',
         logUrl: ''
       },
       rules: {
         name: [{ required: true }],
         clickUrl: [{ required: true }],
+        sort: [{ required: true, validator: (rule, val, callback) => !isNaN(val), trigger: 'blur' }],
         logUrl: [{ required: true }]
       }
     }
@@ -60,6 +65,7 @@ export default {
       this.$refs.form.validate().then(() => {
         this.loading = true
         addCooperation(this.form).then(() => {
+          this.resetFields()
           this.$message({
             message: '合作方式保存成功!',
             type: 'success'

@@ -1,8 +1,13 @@
 <template>
   <div class="list-view">
     <el-button type="primary" icon="plus" @click="$router.push({ name: 'cooperationAdd' })">添加合作方式</el-button>
-    <el-table :data="tableData" v-loading="loading" border style="width: 100%">
-      <el-table-column prop="type" label="类型" width="180" :formatter="formatter"/>
+    <el-table :data="tableData" v-loading="loading" border style="width: 100%"
+              :default-sort="{ prop: 'sort', order: 'ascending' }">
+      <el-table-column prop="sort" label="序号" sortable width="80"/>
+      <el-table-column prop="type" label="类型" width="180"
+                       :filters="[{text: '友情链接', value: 1},{text: '入驻项目方', value: 2},]"
+                       :filter-method="filterHandler"
+                       :formatter="formatter"/>
       <el-table-column prop="name" label="名称" width="180" />
       <el-table-column prop="logUrl" label="Logo">
         <template #default="scope">
@@ -35,7 +40,7 @@
 </template>
 
 <script>
-import { findCooperationAll, delCooperation } from '@/server/api'
+import { findCooperationAll, delCooperation } from '@/server/http/api'
 import { mapGetters } from 'vuex'
 
 export default {
@@ -55,9 +60,13 @@ export default {
     this.qryList()
   },
   methods: {
+    filterHandler (val, row, column) {
+      const property = column.property
+      return row[property] === val
+    },
     formatter (row, column, cellValue, index) {
       if (cellValue === 1) {
-        return '合作机构'
+        return '友情链接'
       } else {
         return '入驻项目方'
       }

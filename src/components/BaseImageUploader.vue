@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import { uploadImg } from '@/server/api'
+import { uploadImg } from '@/server/http/api'
 
 export default {
   name: 'BaseImageUploader',

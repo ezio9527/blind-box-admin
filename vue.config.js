@@ -1,4 +1,5 @@
 const { defineConfig } = require('@vue/cli-service')
+const NodePolyfillPlugin = require('node-polyfill-webpack-plugin')
 const path = require('path')
 const AutoImport = require('unplugin-auto-import/webpack')
 const Components = require('unplugin-vue-components/webpack')
@@ -34,6 +35,7 @@ module.exports = defineConfig({
   },
   configureWebpack: {
     plugins: [
+      new NodePolyfillPlugin(),
       AutoImport({
         resolvers: [ElementPlusResolver()]
       }),

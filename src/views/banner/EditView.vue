@@ -5,6 +5,9 @@
       <el-form-item label="标题" prop="name">
         <el-input v-model="form.title"/>
       </el-form-item>
+      <el-form-item label="排序" prop="sort">
+        <el-input v-model="form.sort"/>
+      </el-form-item>
       <el-form-item label="链接" prop="clickUrl">
         <el-input v-model="form.clickUrl"/>
       </el-form-item>
@@ -20,7 +23,7 @@
 </template>
 
 <script>
-import { editBanner } from '@/server/api'
+import { editBanner } from '@/server/http/api'
 import { mapGetters } from 'vuex'
 
 export default {
@@ -38,11 +41,13 @@ export default {
       form: {
         id: '',
         title: '',
+        sort: '',
         clickUrl: '',
         imageUrl: ''
       },
       rules: {
         title: [{ required: true }],
+        sort: [{ required: true, validator: (rule, val, callback) => !isNaN(val), trigger: 'blur' }],
         clickUrl: [{ required: true }],
         imageUrl: [{ required: true }]
       }

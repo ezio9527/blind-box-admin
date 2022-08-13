@@ -11,6 +11,9 @@
       <el-form-item label="名称" prop="name">
         <el-input v-model="form.name"/>
       </el-form-item>
+      <el-form-item label="排序" prop="sort">
+        <el-input v-model="form.sort"/>
+      </el-form-item>
       <el-form-item label="链接" prop="clickUrl">
         <el-input v-model="form.clickUrl"/>
       </el-form-item>
@@ -26,7 +29,7 @@
 </template>
 
 <script>
-import { findCooperationById, editCooperation } from '@/server/api'
+import { findCooperationById, editCooperation } from '@/server/http/api'
 import { mapGetters } from 'vuex'
 
 export default {
@@ -41,12 +44,14 @@ export default {
       form: {
         type: '1',
         name: '',
+        sort: '',
         clickUrl: '',
         logUrl: ''
       },
       rules: {
         name: [{ required: true }],
         clickUrl: [{ required: true }],
+        sort: [{ required: true, validator: (rule, val, callback) => !isNaN(val), trigger: 'blur' }],
         logUrl: [{ required: true }]
       }
     }

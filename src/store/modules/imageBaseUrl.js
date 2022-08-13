@@ -1,4 +1,4 @@
-import { getBaseUrl } from '@/server/api'
+import { getBaseUrl } from '@/server/http/api'
 
 const state = () => ({
   // 所有图片的BaseUrl

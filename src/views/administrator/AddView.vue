@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import { addAdmin } from '@/server/api'
+import { addAdmin } from '@/server/http/api'
 
 export default {
   name: 'AddView',

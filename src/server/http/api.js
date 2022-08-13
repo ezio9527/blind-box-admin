@@ -98,3 +98,6 @@ export function findBoxAll () {
 export function addBox (data) {
   return http.post('/box/add', data, { headers: { 'Content-Type': 'application/json' } })
 }
+export function delBox (data) {
+  return http.get('/box/del/' + data)
+}

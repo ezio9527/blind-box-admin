@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import { addNotice } from '@/server/api'
+import { addNotice } from '@/server/http/api'
 
 export default {
   name: 'AddView',

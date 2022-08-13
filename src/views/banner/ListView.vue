@@ -1,7 +1,9 @@
 <template>
   <div class="list-view">
     <el-button type="primary" icon="plus" @click="$router.push({ name: 'bannerAdd' })">添加轮播图</el-button>
-    <el-table :data="tableData" v-loading="loading" border style="width: 100%">
+    <el-table :data="tableData" v-loading="loading" border style="width: 100%"
+              :default-sort="{ prop: 'sort', order: 'ascending' }">
+      <el-table-column prop="sort" label="序号" sortable width="80"/>
       <el-table-column prop="title" label="标题" width="180"/>
       <el-table-column prop="clickUrl" label="链接">
         <template #default="scope">
@@ -39,7 +41,7 @@
 </template>
 
 <script>
-import { findBannerAll, delBanner } from '@/server/api'
+import { findBannerAll, delBanner } from '@/server/http/api'
 import { mapGetters } from 'vuex'
 
 export default {

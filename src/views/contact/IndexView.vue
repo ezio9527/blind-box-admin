@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import { findContact, editContact } from '@/server/api'
+import { findContact, editContact } from '@/server/http/api'
 
 export default {
   name: 'ContactView',

@@ -30,7 +30,7 @@
 </template>
 
 <script>
-import { delAdmin, findAdminAll } from '@/server/api'
+import { delAdmin, findAdminAll } from '@/server/http/api'
 
 export default {
   name: 'ListView',

@@ -20,9 +20,9 @@
       </el-tooltip>
       <el-tooltip
         effect="dark"
-        content="锁屏"
+        :content="address ? '钱包已连接' : '连接钱包'"
         placement="bottom">
-        <el-icon><lock /></el-icon>
+        <el-icon @click="enable" :class="{success: address, fail: !address}"><Link /></el-icon>
       </el-tooltip>
     </div>
     <div class="header-avatar">
@@ -33,7 +33,10 @@
 </template>
 
 <script>
-import { logout } from '@/server/api'
+import { logout } from '@/server/http/api'
+import Wallet from '@/plugins/Wallet'
+import config from '@/assets/data/wallet.conf'
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'HeaderComp',
@@ -41,18 +44,61 @@ export default {
     return {
       username: localStorage.getItem('username'),
       breadcrumb: [],
-      collapse: false
+      collapse: false,
+      wallet: null
     }
+  },
+  computed: {
+    ...mapGetters({
+      address: 'wallet/getAddress'
+    })
   },
   watch: {
     $route () {
       this.getBreadcrumb()
     }
   },
-  created () {
+  mounted () {
     this.getBreadcrumb()
+    this.wallet = new Wallet({
+      config,
+      enable: this.enableHandler,
+      connect: this.connectHandler,
+      chainChanged: this.enable,
+      accountsChanged: this.enableHandler
+    })
+    this.$store.commit('wallet/setWallet', this.wallet)
   },
   methods: {
+    // 点击连接图标的处理
+    linkHandler () {
+      if (this.wallet && !this.address) {
+        this.wallet.enable()
+      }
+    },
+    // 授权回调
+    enableHandler (accounts) {
+      this.$store.commit('wallet/setAddress', accounts[0])
+    },
+    // 连接回调
+    connectHandler ({ wallet }) {
+      wallet.enable()
+    },
+    // 网络切换回调
+    enable ({ wallet, chainId, config }) {
+      if (chainId !== config.chainId) {
+        this.$messageBox.confirm('网络切换', '系统检测到当前不是BSC网络,请问是否切换致BSC网络?', {
+          type: 'warning'
+        }).then(() => {
+          wallet.enable()
+        }).catch(() => {
+          // on cancel
+          this.$notify({ message: '当前网络不正确，系统无法正常运行', duration: 5000 })
+        })
+      } else {
+        wallet.enable()
+      }
+    },
     getBreadcrumb () {
       this.breadcrumb = this.$route.matched.map(item => {
         return item.meta.title
@@ -119,6 +165,12 @@ export default {
       &:hover {
         font-size: 26px;
         color: #ffd04b;
+      }
+      &.success {
+        color: #67C23A;
+      }
+      &.fail {
+        color: #F56C6C;
       }
     }
   }

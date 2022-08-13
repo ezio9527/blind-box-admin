@@ -27,7 +27,7 @@
 </template>
 
 <script>
-import { login } from '@/server/api'
+import { login } from '@/server/http/api'
 
 export default {
   name: 'LoginView',

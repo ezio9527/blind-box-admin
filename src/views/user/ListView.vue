@@ -39,7 +39,7 @@
 </template>
 
 <script>
-import { findUserAll, findUserIncome, findTeamIncome } from '@/server/api'
+import { findUserAll, findUserIncome, findTeamIncome } from '@/server/http/api'
 import { mapGetters } from 'vuex'
 
 export default {

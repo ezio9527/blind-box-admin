@@ -72,7 +72,7 @@ export default {
           component: () => import('@views/cooperation/ListView'),
           meta: {
             requireAuth: true,
-            title: '入驻项目方列表',
+            title: '入驻项目方',
             menuItem: true
           }
         },
@@ -114,7 +114,7 @@ export default {
           props: true,
           meta: {
             requireAuth: true,
-            title: '轮播图列表',
+            title: '轮播图',
             menuItem: true
           }
         },
@@ -156,7 +156,7 @@ export default {
           props: true,
           meta: {
             requireAuth: true,
-            title: '通知公告列表',
+            title: '通知公告',
             menuItem: true
           }
         },

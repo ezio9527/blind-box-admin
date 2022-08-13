@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import { editNotice, findNoticeById } from '@/server/api'
+import { editNotice, findNoticeById } from '@/server/http/api'
 
 export default {
   name: 'EditView',

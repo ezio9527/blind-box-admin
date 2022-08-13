@@ -2,8 +2,11 @@
   <div>
     <el-page-header title="返回" :content="$route.meta.title" @back="$router.push({ name: 'bannerList' })" />
     <el-form :model="form" :rules="rules" ref="form" v-loading="loading" size="large" label-width="120px">
-      <el-form-item label="标题" prop="name">
+      <el-form-item label="标题" prop="title">
         <el-input v-model="form.title"/>
+      </el-form-item>
+      <el-form-item label="排序" prop="sort">
+        <el-input v-model="form.sort"/>
       </el-form-item>
       <el-form-item label="链接" prop="clickUrl">
         <el-input v-model="form.clickUrl"/>
@@ -21,7 +24,7 @@
 </template>
 
 <script>
-import { addBanner } from '@/server/api'
+import { addBanner } from '@/server/http/api'
 
 export default {
   name: 'AddView',
@@ -31,11 +34,13 @@ export default {
       imageUrl: '',
       form: {
         title: '',
+        sort: '',
         clickUrl: '',
         imageUrl: ''
       },
       rules: {
         title: [{ required: true }],
+        sort: [{ required: true, validator: (rule, val, callback) => !isNaN(val), trigger: 'blur' }],
         clickUrl: [{ required: true }],
         imageUrl: [{ required: true }]
       }

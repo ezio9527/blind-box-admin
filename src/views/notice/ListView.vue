@@ -30,7 +30,7 @@
 </template>
 
 <script>
-import { findNoticeAll, delNotice } from '@/server/api'
+import { findNoticeAll, delNotice } from '@/server/http/api'
 
 export default {
   name: 'ListView',

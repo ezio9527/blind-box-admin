@@ -1,6 +1,7 @@
 import HomeView from '@/views/home/IndexView'
 import user from './user'
 import box from './box'
+// import transfer from './transfer'
 import system from './system'
 
 export default {
@@ -15,6 +16,7 @@ export default {
   children: [
     user,
     box,
+    // transfer,
     system
   ]
 }

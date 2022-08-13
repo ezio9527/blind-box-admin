@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import { editAdmin } from '@/server/api'
+import { editAdmin } from '@/server/http/api'
 
 export default {
   name: 'EditView',
