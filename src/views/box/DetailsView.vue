@@ -17,16 +17,28 @@
         <el-input v-model="form.box.price"/>
       </el-form-item>
       <el-form-item label="代币合约地址" prop="box.contractAddress">
-        <el-input v-model="form.box.contractAddress"/>
+        <el-input v-model="form.box.contractAddress">
+          <template #suffix>
+            {{ symbolList[0] }}
+          </template>
+        </el-input>
       </el-form-item>
       <el-form-item label="发布者地址" prop="box.owenAddress">
-        <el-input v-model="form.box.owenAddress"/>
+        <el-input v-model="form.box.owenAddress">
+          <template #suffix>
+            {{ symbolList[1] }}
+          </template>
+        </el-input>
       </el-form-item>
       <el-form-item label="发布者分成" prop="box.owenIncome">
         <el-input v-model="form.box.owenIncome"/>
       </el-form-item>
       <el-form-item label="对接者地址" prop="box.proxyAddress">
-        <el-input v-model="form.box.proxyAddress"/>
+        <el-input v-model="form.box.proxyAddress">
+          <template #suffix>
+            {{ symbolList[2] }}
+          </template>
+        </el-input>
       </el-form-item>
       <el-form-item label="盲盒内容" >
         <div></div>
@@ -34,8 +46,14 @@
       <el-form-item v-for="(item, index) in form.proportions" :key="index" :label="(index+1+'.').toString()">
         <el-col :span="2"><el-input v-model="form.proportions[index].totalNum"/></el-col>
         <el-col :span="1"><div style="text-align: center;">个</div></el-col>
-        <el-col :span="6" :offset="1"><el-input v-model="form.proportions[index].quantity"/></el-col>
-        <el-col :span="6" :offset="1"><el-input v-model="form.proportions[index].tokenAddress"/></el-col>
+        <el-col :span="2" :offset="1"><el-input v-model="form.proportions[index].quantity"/></el-col>
+        <el-col :span="10" :offset="1">
+          <el-input v-model="form.proportions[index].tokenAddress">
+            <template #suffix>
+              {{ symbolList[index + 3] }}
+            </template>
+          </el-input>
+        </el-col>
       </el-form-item>
     </el-form>
   </div>
@@ -43,6 +61,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import ERCContract from '@/server/contract/ERCContract'
 
 export default {
   name: 'DetailsView',
@@ -51,6 +70,7 @@ export default {
   },
   data () {
     return {
+      symbolList: ['', '', '', '', '', ''],
       form: {
         box: {
           imageUrl: '',
@@ -72,7 +92,8 @@ export default {
   },
   computed: {
     ...mapGetters({
-      baseUrl: 'imageBaseUrl/getUrl'
+      baseUrl: 'imageBaseUrl/getUrl',
+      walletAddress: 'wallet/getAddress'
     })
   },
   created () {
@@ -81,6 +102,21 @@ export default {
       return
     }
     this.form = this.box
+    this.getSymbol(this.form.box.contractAddress, 0)
+    // this.getSymbol(this.form.box.owenAddress, 1)
+    // this.getSymbol(this.form.box.proxyAddress, 2)
+    // this.form.box.proportions.forEach((item, index) => {
+    //   this.getSymbol(item.tokenAddress, index + 3)
+    // })
+  },
+  methods: {
+    getSymbol (address, key) {
+      this.symbolList[key] = ''
+      const contract = new ERCContract(this.walletAddress, address)
+      contract.getSymbol().then(data => {
+        this.symbolList[key] = data
+      })
+    }
   }
 }
 </script>

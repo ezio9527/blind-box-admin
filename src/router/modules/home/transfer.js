@@ -11,9 +11,20 @@ export default {
       component: () => import('@views/transfer/ListView'),
       meta: {
         requireAuth: true,
-        title: '批量转账',
+        title: '一键转账',
         menuItem: true,
-        icon: 'Box'
+        icon: 'List'
+      }
+    },
+    {
+      // 转账记录
+      path: '/transfer/record',
+      name: 'transferRecord',
+      component: () => import('@views/transfer/RecordView'),
+      props: true,
+      meta: {
+        requireAuth: true,
+        title: '转账记录'
       }
     }
   ]

@@ -101,3 +101,19 @@ export function addBox (data) {
 export function delBox (data) {
   return http.get('/box/del/' + data)
 }
+// 批量转账
+export function findTransferAll () {
+  return http.get('/transfer/findAll')
+}
+export function addTransfer (data) {
+  return http.post('/transfer/add', data, { headers: { 'Content-Type': 'application/json' } })
+}
+export function delTransfer (data) {
+  return http.post('/transfer/del', data, { headers: { 'Content-Type': 'application/json' } })
+}
+export function transact (data) {
+  return http.post('/transfer/doTransfer', data, { headers: { 'Content-Type': 'application/json' } })
+}
+export function findTransactionRecord (params) {
+  return http.get('/transfer/findRecord', { params })
+}

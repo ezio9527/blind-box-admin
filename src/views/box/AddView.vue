@@ -226,6 +226,7 @@ export default {
       })
     },
     getSymbol (address, key) {
+      this.symbolList[key] = ''
       const contract = new ERCContract(this.walletAddress, address)
       contract.getSymbol().then(data => {
         this.symbolList[key] = data
