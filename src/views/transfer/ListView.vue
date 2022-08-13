@@ -1,7 +1,7 @@
 <template>
   <div class="list-view">
     <el-button type="primary" icon="plus" @click="addDialog = true">新增地址</el-button>
-    <el-form :inline="true" :model="form" ref="form">
+    <el-form v-loading="loading" :inline="true" :model="form" ref="form">
       <el-form-item label="转出地址私钥" prop="walletAddress">
         <el-input v-model="form.privateKey" placeholder="请输入私钥" />
       </el-form-item>
@@ -124,6 +124,7 @@ export default {
       this.$router.push({ name: 'transferRecord', params: { address: row.walletAddress } })
     },
     handleDelete (index, row) {
+      this.loading = true
       delTransfer([row.id.toString()]).then(() => {
         this.$message({
           message: '删除成功!',
@@ -131,9 +132,11 @@ export default {
         })
       }).finally(() => {
         this.qryList()
+        this.loading = false
       })
     },
     handleDeleteList () {
+      this.loading = true
       delTransfer(this.selectionId).then(() => {
         this.$message({
           message: '删除成功!',
@@ -141,6 +144,7 @@ export default {
         })
       }).finally(() => {
         this.qryList()
+        this.loading = false
       })
     },
     transactBat () {

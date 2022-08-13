@@ -2,9 +2,13 @@
   <div class="record-view">
     <el-page-header title="返回" :content="$route.meta.title" @back="$router.push({ name: 'transferList' })" />
     <el-table :data="tableData" v-loading="loading" border style="width: 100%">
-      <el-table-column prop="type" label="类型" width="180" :formatter="formatter"/>
-      <el-table-column prop="title" label="标题" width="180" />
-      <el-table-column prop="content" label="内容" />
+      <el-table-column prop="symbol" label="币种" />
+      <el-table-column prop="fromAddress" label="转出地址" />
+      <el-table-column prop="walletAddress" label="转入地址" />
+      <el-table-column prop="txHash" label="交易hash" />
+      <el-table-column prop="quantity" label="数量" />
+      <el-table-column prop="status" label="状态" :formatter="formatter"/>
+      <el-table-column prop="createTime" label="时间" />
     </el-table>
   </div>
 </template>
@@ -28,15 +32,18 @@ export default {
   },
   methods: {
     formatter (row, column, cellValue, index) {
-      if (cellValue === 1) {
-        return '通知公告'
-      } else {
-        return '操作指南'
+      switch (cellValue) {
+        case 1:
+          return '处理中'
+        case 2:
+          return '成功'
+        case 3:
+          return '失败'
       }
     },
     qryList () {
       this.loading = true
-      findTransactionRecord().then(data => {
+      findTransactionRecord({ walletRecord: this.address }).then(data => {
         this.tableData = data.map(item => {
           item.id = item.id.toString()
           return item
