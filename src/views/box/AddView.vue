@@ -2,6 +2,9 @@
   <div>
     <el-page-header title="返回" :content="$route.meta.title" @back="$router.push({ name: 'boxList' })" />
     <el-form :model="form" :rules="rules" ref="form" v-loading="loading" size="large" label-width="120px">
+      <el-form-item label="谷歌验证" prop="googleKey">
+        <el-input v-model="form.googleKey"/>
+      </el-form-item>
       <el-form-item label="盲盒图片" prop="box.imageUrl">
         <div style="background: linear-gradient(137deg, #845CCF 0%, #C25296 59%, #EE4B6E 100%);padding: 20px">
           <base-image-uploader class="base-image-uploader" @success="uploadHandler"></base-image-uploader>
@@ -90,6 +93,7 @@ export default {
       loading: false,
       symbolList: ['', '', '', '', '', ''],
       form: {
+        googleKey: '',
         box: {
           imageUrl: '',
           boxName: '',
@@ -109,6 +113,7 @@ export default {
         }]
       },
       rules: {
+        googleKey: [{ required: true }],
         box: {
           imageUrl: [{ required: true }],
           boxName: [{ required: true }],

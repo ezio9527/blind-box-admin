@@ -9,10 +9,13 @@
         <el-form :model="form" :rules="rules" ref="form" size="large">
           <h3>欢迎来到 疯狂盲盒 后台管理 ! 👋🏻</h3>
           <el-form-item prop="userName">
-            <el-input v-model="form.userName" size="large" prefix-icon="User"/>
+            <el-input v-model="form.userName" size="large" prefix-icon="User" placeholder="请输入用户名"/>
           </el-form-item>
           <el-form-item prop="userPwd">
-            <el-input v-model="form.userPwd" size="large" prefix-icon="lock" type="password" show-password/>
+            <el-input v-model="form.userPwd" size="large" prefix-icon="lock" type="password" show-password placeholder="请输入密码"/>
+          </el-form-item>
+          <el-form-item prop="googleKey">
+            <el-input v-model="form.googleKey" size="large" prefix-icon="key" placeholder="请输入谷歌验证码"/>
           </el-form-item>
           <el-form-item>
             <el-checkbox v-model="remember" label="记住密码" name="type"/>
@@ -37,7 +40,8 @@ export default {
       remember: false,
       form: {
         userName: '',
-        userPwd: ''
+        userPwd: '',
+        googleKey: ''
       },
       rules: {
         userName: [
@@ -47,7 +51,8 @@ export default {
         userPwd: [
           { required: true, message: '请输入密码', trigger: 'blur' },
           { min: 3, max: 15, message: '密码长度3-15', trigger: 'blur' }
-        ]
+        ],
+        googleKey: [{ required: true, message: '请输入谷歌验证码', trigger: 'blur' }]
       }
     }
   },

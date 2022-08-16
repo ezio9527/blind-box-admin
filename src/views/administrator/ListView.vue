@@ -2,9 +2,10 @@
   <div class="list-view">
     <el-button type="primary" icon="plus" @click="$router.push({ name: 'administratorAdd' })">添加管理员</el-button>
     <el-table :data="tableData" border style="width: 100%">
-      <el-table-column prop="id" label="ID" width="180" />
-      <el-table-column prop="userName" label="账号" width="180" />
+      <el-table-column prop="id" label="ID"/>
+      <el-table-column prop="userName" label="账号"/>
       <el-table-column prop="createTime" label="创建时间" />
+      <el-table-column prop="googleKey" label="谷歌秘钥" />
       <el-table-column label="操作">
       <template #default="scope">
         <el-button
